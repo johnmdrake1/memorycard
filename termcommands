@@ -1,0 +1,5 @@
+###The following commands were run at the beginning of the project, putting here for posterity...
+
+npm i web-vitals --save-dev
+
+npm install react-router-dom react-bootstrap bootstrap

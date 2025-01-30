@@ -11,7 +11,7 @@ function GameResults() {
     //Access the state passed from GameForm
     const location = useLocation();
     //Destructure this state to get inputted game and level, or default to dummy data "User Game"/"User Level"
-    const { gameName, level } = location.state || {gameName: 'User Game', level: 'User Level'};
+    const { gameName, level } = location.state || { gameName: 'User Game', level: 'User Level' };
 
     return (
         //Wrapper div

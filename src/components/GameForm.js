@@ -70,7 +70,7 @@ function GameForm() {
                 Submit
             </Button>
         </Form>
-    )
+    );
 }
 
 // Export the GameForm component

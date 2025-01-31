@@ -5,6 +5,7 @@ import OpenAI from 'openai';
 //Create an OpenAI client using environment variable
 const openai = new OpenAI({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+    dangerouslyAllowBrowser: true
 });
 
 
@@ -20,7 +21,7 @@ export async function fetchGameData(gameName, level) {
     {
         "recap": "Recap of the story so far"
         "objective": "Current objective or next steps"
-        "controls": "Important controls or mechanics"
+        "controls": "A bulleted list of important controls or mechanics here"
     }
     `;
 
@@ -40,10 +41,10 @@ export async function fetchGameData(gameName, level) {
         console.log("Raw response:");
         console.log(response);
         console.log("Raw Message content")
-        console.log(response.data.choices[0].message.content);
+        console.log(response.choices[0].message.content);
 
         //extract response text
-        const aiText = response.data.choices[0].message.content.trim();
+        const aiText = response.choices[0].message.content.trim();
         console.log("Message with content trim:");
         console.log(aiText);
 

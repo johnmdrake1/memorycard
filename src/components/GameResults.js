@@ -25,6 +25,8 @@ function GameResults() {
         async function getData() {
             //fetch data from OpenAI API
             const data = await fetchGameData(gameName, level);
+            console.log("Data(in GameResults.js):")
+            console.log(data);
             setRecap(data.recap);
             setObjective(data.objective);
             setControls(data.controls);

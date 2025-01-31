@@ -1,10 +1,12 @@
 //src/components/GameResults.js
 //Import React
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 //Import useLocation hook from React Router to read navigation state
 import { useLocation } from 'react-router-dom';
 //Import Row, Col, Card from React Bootstrap
 import { Row, Col, Card } from 'react-bootstrap';
+//import my openai function
+import { fetchGameData } from '../openai';
 
 //Game Results function component for displaying retrieved game info
 function GameResults() {
@@ -12,6 +14,25 @@ function GameResults() {
     const location = useLocation();
     //Destructure this state to get inputted game and level, or default to dummy data "User Game"/"User Level"
     const { gameName, level } = location.state || { gameName: 'User Game', level: 'User Level' };
+
+    //Local state to store the data from OpenAI
+    const [recap, setRecap] = useState('');
+    const [objective, setObjective] = useState('');
+    const [controls, setControls] = useState('');
+
+    //useEffect to trigger the API call once on mount, (API hasn't been called as of the time GameResults loads)
+    useEffect(() => {
+        async function getData() {
+            //fetch data from OpenAI API
+            const data = await fetchGameData(gameName, level);
+            console.log("Data(in GameResults.js):")
+            console.log(data);
+            setRecap(data.recap);
+            setObjective(data.objective);
+            setControls(data.controls);
+        }
+        getData();
+    }, [gameName, level]);
 
     return (
         //Wrapper div
@@ -42,8 +63,7 @@ function GameResults() {
                         <Card.Body>
                             <Card.Title>The story so far</Card.Title>
                             <Card.Text>
-                                This is a quick recap of the story so far in <strong>{gameName}</strong>,
-                                right up until {level}. Lorem ipsum dolor sit amet...
+                                {recap}
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -55,8 +75,7 @@ function GameResults() {
                         <Card.Body>
                             <Card.Title>Where you're at, and what's next</Card.Title>
                             <Card.Text>
-                                In your current level, {level} you're doing the following: 
-                                Next Steps include navigating the <em>Dungeon of Doom</em>, collecting 3 keys, etc.
+                                {objective}
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -68,8 +87,7 @@ function GameResults() {
                         <Card.Body>
                             <Card.Title>Controls &amp; Mechanics</Card.Title>
                             <Card.Text>
-                                A quick refresher on gameplay: press X to attack, hold R2 to sprint,
-                                use the left stick to move, etc. Remember your special abilities!
+                                {controls}
                             </Card.Text>
                         </Card.Body>
                     </Card>

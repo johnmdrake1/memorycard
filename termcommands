@@ -3,3 +3,5 @@
 npm i web-vitals --save-dev
 
 npm install react-router-dom react-bootstrap bootstrap
+
+Npm install openai

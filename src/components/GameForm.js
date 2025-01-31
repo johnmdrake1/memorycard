@@ -17,7 +17,7 @@ function GameForm() {
     //handler for submission of game and level
     const handleSubmit = (e) => {
         e.preventDefault();
-        //Simulate an API call for now, then navigate to /results page
+        //Navigate to results page with gameName and level, API will be called there
         navigate('/results', { state: { gameName, level } });
     };
 

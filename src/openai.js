@@ -1,25 +1,22 @@
 //src/openai.js
-import { Configuration, OpenAIApi } from 'openai';
+//OpenAI API/SDK imports
+import OpenAI from 'openai';
 
-//Create a configuration object using environment variable
-const configuration = new Configuration({
-    apiKey: process.env.REACT_APP_APENAI_API_KEY,
+//Create an OpenAI client using environment variable
+const openai = new OpenAI({
+    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 });
 
-//Create an OpenAI API client
-const openai = new OpenAIApi(configuration);
 
-//fetchGameData - calls the OpenAI API with a user prompt to get JSON data
-
+//fetchGameData(gameName, level) - calls the OpenAI API with a user prompt to get JSON data
 export async function fetchGameData(gameName, level) {
-    //Construct a prompt that instructs GPT to respond in JSON
+    //Constructed prompt that instructs GPT to respond in JSON
     const prompt = `
-    You are a game refresher assistant. The user is returning to a game.
     The user is at:
     Game title: ${gameName}
     Current level: ${level}
 
-    Provide the following in JSON format:
+    Provide the following in JSON:
     {
         "recap": "Recap of the story so far"
         "objective": "Current objective or next steps"
@@ -27,12 +24,15 @@ export async function fetchGameData(gameName, level) {
     }
     `;
 
-    //Make a call to the ChatCompletion endpoint
+    //Put in try block in case call fails
     try {
-        const response = await openai.createChatCompletion({
+        //Make a Chat Completion Request
+        const response = await openai.chat.completions.create({
             model: 'gpt-4o-mini', //or another model, using 4o mini for now
             messages: [
-                { role: "system", content: "You are an assistant that returns JSON only" },
+                //System message; instructions for how the assistant should behave
+                { role: "system", content: "You are a game refresher assistant that returns JSON only" },
+                //A user message, the actual user input
                 { role: "user", content: prompt},
             ],
             temperature: 0.7,
@@ -62,6 +62,9 @@ export async function fetchGameData(gameName, level) {
 
         console.log("Parsed:");
         console.log(parsed);
+
+        //return the parsed response
+        return parsed
 
 
     } catch(error) {

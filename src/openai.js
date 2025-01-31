@@ -14,7 +14,7 @@ const openai = new OpenAIApi(configuration);
 export async function fetchGameData(gameName, level) {
     //Construct a prompt that instructs GPT to respond in JSON
     const prompt = `
-    You are a game refresher assistant. The user is returning to a game.Configuration
+    You are a game refresher assistant. The user is returning to a game.
     The user is at:
     Game title: ${gameName}
     Current level: ${level}

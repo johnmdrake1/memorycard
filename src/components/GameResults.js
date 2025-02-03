@@ -45,14 +45,14 @@ function GameResults() {
                 border: '2px solid #ff00ff'
             }}
         >
-            {/* A heading for the game recap, which is called a "Memory Card" for now */}
+            {/* A heading for the game recap, which is no longer called a memory card */}
             <h2 className='text-center mb-4' style={{ color: '#00ff00', fontFamily: 'monospace' }}>
-                Your Memory Card for <strong>{gameName}</strong>
+                Your <strong>{gameName}</strong> Recap
             </h2>
 
             {/* Inform the user of the game name and level info is being displayed for */}
             <p className='text-center' style={{ color: '#ffff00', fontWeight: 'bold' }}>
-                Here is everything you need to start playing <strong>{gameName}</strong> at <strong>{level}</strong>!
+                Here is everything you need to start playing <strong>{gameName}</strong> again on <strong>{level}</strong>!
             </p>
 
             {/* Use Bootstrap row to show 3 cards side by side (on larger screens) with one for each category of catchup */}
@@ -61,7 +61,7 @@ function GameResults() {
                 <Col md={4}>
                     <Card className='mb-3 border-0 shadow-sm' style={{ backgroundColor: '#1a1a1a', color: '#00ff00' }}>
                         <Card.Body>
-                            <Card.Title>The story so far</Card.Title>
+                            <Card.Title>Story Recap</Card.Title>
                             <Card.Text>
                                 {recap}
                             </Card.Text>
@@ -73,7 +73,7 @@ function GameResults() {
                 <Col md={4}>
                     <Card className='mb-3 border-0 shadow-sm' style={{ backgroundColor: '#1a1a1a', color: '#00ff00' }}>
                         <Card.Body>
-                            <Card.Title>Where you're at, and what's next</Card.Title>
+                            <Card.Title>Current Objective</Card.Title>
                             <Card.Text>
                                 {objective}
                             </Card.Text>

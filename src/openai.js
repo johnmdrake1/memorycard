@@ -30,7 +30,8 @@ export async function fetchGameData(gameName, level) {
             //Make GPT return a JSON object
             response_format: {
                 "type": "json_object"
-              },
+            },
+            max_completion_tokens: 2048,
         });
         console.log("Raw response:");
         console.log(response);
@@ -59,7 +60,7 @@ export async function fetchGameData(gameName, level) {
         console.log(parsed);
 
         //return the parsed response
-        return parsed
+        return parsed;
 
 
     } catch(error) {

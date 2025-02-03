@@ -7,6 +7,8 @@ import { useLocation } from 'react-router-dom';
 import { Row, Col, Card } from 'react-bootstrap';
 //import my openai function
 import { fetchGameData } from '../openai';
+//import Result Card component
+import ResultCard from './ResultCard';
 
 //Game Results function component for displaying retrieved game info
 function GameResults() {
@@ -59,38 +61,17 @@ function GameResults() {
             <Row>
                 {/* First card: Recap/"the story so far" */}
                 <Col md={4}>
-                    <Card className='mb-3 border-0 shadow-sm' style={{ backgroundColor: '#1a1a1a', color: '#00ff00' }}>
-                        <Card.Body>
-                            <Card.Title>Story Recap</Card.Title>
-                            <Card.Text>
-                                {recap}
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
+                    <ResultCard title="Story Recap" content={recap} />
                 </Col>
 
                 {/* Second card: Current Objective at current level  */}
                 <Col md={4}>
-                    <Card className='mb-3 border-0 shadow-sm' style={{ backgroundColor: '#1a1a1a', color: '#00ff00' }}>
-                        <Card.Body>
-                            <Card.Title>Current Objective</Card.Title>
-                            <Card.Text>
-                                {objective}
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
+                    <ResultCard title="Current Objective" content={objective} />
                 </Col>
 
                 {/* Third Card: everything you need to remember about the controls and mechanics... */}
                 <Col md={4}>
-                    <Card className='mb-3 border-0 shadow-sm' style={{ backgroundColor: '#1a1a1a', color: '#00ff00' }}>
-                        <Card.Body>
-                            <Card.Title>Controls &amp; Mechanics</Card.Title>
-                            <Card.Text>
-                                {controls}
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
+                    <ResultCard title="Controls & Mechanics" content={controls} />
                 </Col>
             </Row>
         </div>

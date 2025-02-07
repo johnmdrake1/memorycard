@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 //Import useLocation hook from React Router to read navigation state
 import { useLocation } from 'react-router-dom';
 //Import Row, Col, Card from React Bootstrap
-import { Row, Col, Card } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 //import my openai function
 import { fetchGameData } from '../openai';
 //import Result Card component

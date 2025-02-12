@@ -34,7 +34,7 @@ function GameResults() {
             setControls(data.controls);
         }
         getData();
-    }, [gameName, level]);
+    }, [gameName, level, recapOption]);
 
     return (
         //Wrapper div

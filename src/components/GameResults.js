@@ -15,7 +15,7 @@ function GameResults() {
     //Access the state passed from GameForm
     const location = useLocation();
     //Destructure this state to get inputted game and level, or default to dummy data "User Game"/"User Level"
-    const { gameName, level } = location.state || { gameName: 'User Game', level: 'User Level' };
+    const { gameName, level, recapOption } = location.state || { gameName: 'User Game', level: 'User Level', recapOption: 'Everything' };
 
     //Local state to store the data from OpenAI
     const [recap, setRecap] = useState('');
@@ -26,7 +26,7 @@ function GameResults() {
     useEffect(() => {
         async function getData() {
             //fetch data from OpenAI API
-            const data = await fetchGameData(gameName, level);
+            const data = await fetchGameData(gameName, level, recapOption);
             console.log("Data(in GameResults.js):")
             console.log(data);
             setRecap(data.recap);
@@ -56,24 +56,34 @@ function GameResults() {
             <p className='text-center' style={{ color: '#ffff00', fontWeight: 'bold' }}>
                 Here is everything you need to start playing <strong>{gameName}</strong> again on <strong>{level}</strong>!
             </p>
+            {/* Conditionally render 3 cards/categories for everything or just the specifc category selected for the other three options */}
+            {recapOption === "Everything" ? (
+                //Render three cards
+                // {/* Use Bootstrap row to show 3 cards side by side (on larger screens) with one for each category of catchup */}
+                <Row>
+                    {/* First card: Recap/"the story so far" */}
+                    <Col md={4}>
+                        <ResultCard title="Story Recap" content={recap} />
+                    </Col>
 
-            {/* Use Bootstrap row to show 3 cards side by side (on larger screens) with one for each category of catchup */}
-            <Row>
-                {/* First card: Recap/"the story so far" */}
-                <Col md={4}>
-                    <ResultCard title="Story Recap" content={recap} />
-                </Col>
+                    {/* Second card: Current Objective at current level  */}
+                    <Col md={4}>
+                        <ResultCard title="Current Objective" content={objective} />
+                    </Col>
 
-                {/* Second card: Current Objective at current level  */}
-                <Col md={4}>
-                    <ResultCard title="Current Objective" content={objective} />
-                </Col>
-
-                {/* Third Card: everything you need to remember about the controls and mechanics... */}
-                <Col md={4}>
-                    <ResultCard title="Controls & Mechanics" content={controls} />
-                </Col>
-            </Row>
+                    {/* Third Card: everything you need to remember about the controls and mechanics... */}
+                    <Col md={4}>
+                        <ResultCard title="Controls and Mechanics" content={controls} />
+                    </Col>
+                </Row>
+            ) : (
+                //For a single category, determine which data to show
+                <div>
+                    {recapOption === "Story" && <ResultCard title="Story Recap" content={recap} />}
+                    {recapOption === "Objective" && <ResultCard title="Current Objective" content={objective} />}
+                    {recapOption === "Controls and Mechanics" && <ResultCard title="Controls and Mechanics" content={controls} />}
+                </div>
+            )}
         </div>
     );
 

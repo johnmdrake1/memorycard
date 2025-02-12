@@ -13,12 +13,14 @@ function GameForm() {
     const [gameName, setGameName] = useState('');
     //state and state setter for the user's current level in that game
     const [level, setLevel] = useState('');
+    //state and state setter for the type of recap selection, defaults to everything
+    const [recapOption, setRecapOption] = useState("Everything");
 
     //handler for submission of game and level
     const handleSubmit = (e) => {
         e.preventDefault();
-        //Navigate to results page with gameName and level, API will be called there
-        navigate('/results', { state: { gameName, level } });
+        //Navigate to results page with gameName, level, and recapOption. API will be called there.
+        navigate('/results', { state: { gameName, level, recapOption } });
     };
 
     return (
@@ -41,7 +43,7 @@ function GameForm() {
                 {/* Bootstrap row for grouping the input fields */}
                 <Row className="mb-3">
                     {/* Column for the game name input  */}
-                    <Col xs={12} md={6}>
+                    <Col xs={12} md={4}>
                         <Form.Group controlId="formGameName">
                             {/* Label for the first field */}
                             <Form.Label style={{ color: '#0f0' }}>Game Name</Form.Label>
@@ -56,7 +58,7 @@ function GameForm() {
                     </Col>
 
                     {/* Column for the level/stage input */}
-                    <Col xs={12} md={6}>
+                    <Col xs={12} md={4}>
                         <Form.Group controlId="formLevel">
                             {/* Label for the second field */}
                             <Form.Label style={{ color: '#0f0' }}>Current Level/Stage</Form.Label>
@@ -67,6 +69,23 @@ function GameForm() {
                                 value={level}
                                 onChange={(e) => setLevel(e.target.value)}
                             />
+                        </Form.Group>
+                    </Col>
+
+                    {/* Column for type of recap selection  */}
+                    <Col xs={12} md={4}>
+                        <Form.Group controlId="formRecapOption">
+                            <Form.Label style={{ color: '#0f0' }}>Recap:</Form.Label>
+                            <Form.Control
+                                as="select"
+                                value={recapOption}
+                                onChange={(e) => setRecapOption(e.target.value)}
+                            >
+                                <option>Everything</option>
+                                <option>Story</option>
+                                <option>Objective</option>
+                                <option>Controls and Mechanics</option>
+                            </Form.Control>
                         </Form.Group>
                     </Col>
                 </Row>

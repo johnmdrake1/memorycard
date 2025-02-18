@@ -51,7 +51,7 @@ function ResultsSingle() {
             }}
         >
             <h2 className='text-center mb-4' style={{ color:'#00ff00', fontFamily: 'monospace' }}>
-                {gameName} - {cardTitle} :)
+                {gameName} - {cardTitle}
             </h2>
             <ResultCard title={cardTitle} content={cardContent} />
             {/* Add a Back button to return to the multi-card view */}

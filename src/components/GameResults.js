@@ -2,7 +2,7 @@
 //Import React
 import React, { useEffect, useState } from 'react';
 //Import useLocation hook from React Router to read navigation state
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 //Import Row, Col, Card from React Bootstrap
 import { Row, Col, Button } from 'react-bootstrap';
 //import my openai function
@@ -14,6 +14,8 @@ import ResultCard from './ResultCard';
 function GameResults() {
     //Access the state passed from GameForm
     const location = useLocation();
+    //navigate for routing
+    const navigate = useNavigate();
     //Destructure this state to get inputted game and level, or default to dummy data "User Game"/"User Level"
     const { gameName, level, recapOption } = location.state || { gameName: 'User Game', level: 'User Level', recapOption: 'Everything' };
 
@@ -64,7 +66,7 @@ function GameResults() {
                     <ResultCard title="Story Recap" content={recap} />
                     {/* The +more button  */}
                     <div className='text-center mt-2'>
-                        <Button variant="warning" onClick={() => Navigate('/results-single', { state: { gameName, level, recapOption: "Story" } })}>
+                        <Button variant="warning" onClick={() => navigate('/results-single', { state: { gameName, level, recapOption: "Story" } })}>
                             + more
                         </Button>
                     </div>
@@ -74,7 +76,7 @@ function GameResults() {
                 <Col md={4}>
                     <ResultCard title="Current Objective" content={objective} />
                     <div className='text-center mt-2'>
-                        <Button variant="warning" onClick={() => Navigate('results-single', { state: {gameName, level, recapOption: "Objective" } })}>
+                        <Button variant="warning" onClick={() => navigate('/results-single', { state: {gameName, level, recapOption: "Objective" } })}>
                             + more
                         </Button>
                     </div>
@@ -84,7 +86,7 @@ function GameResults() {
                 <Col md={4}>
                     <ResultCard title="Controls and Mechanics" content={controls} />
                     <div className='text-center mt-2'>
-                        <Button variant="warning" onClick={() => Navigate('results-single', { state: { gameName, level, recapOption: "Controls and Mechanics" } })}>
+                        <Button variant="warning" onClick={() => navigate('/results-single', { state: { gameName, level, recapOption: "Controls and Mechanics" } })}>
                             + more
                         </Button>
                     </div>

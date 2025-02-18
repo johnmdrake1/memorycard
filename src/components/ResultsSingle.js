@@ -12,7 +12,7 @@ function ResultsSingle() {
     const { gameName, level, recapOption } = location.state || { gameName: 'User Game', level: 'User Level', recapOption: 'Story'};
 
     //Local state for API data
-    const [data, setData] = useState({ recap: '', objective: '', controls: ''});
+    const [data, setData] = useState({ recap: '', objective: '', controls: '' });
 
     useEffect(() => {
         async function getData() {

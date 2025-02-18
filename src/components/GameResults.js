@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 //Import useLocation hook from React Router to read navigation state
 import { useLocation } from 'react-router-dom';
 //Import Row, Col, Card from React Bootstrap
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 //import my openai function
 import { fetchGameData } from '../openai';
 //import Result Card component
@@ -56,34 +56,41 @@ function GameResults() {
             <p className='text-center' style={{ color: '#ffff00', fontWeight: 'bold' }}>
                 Here is everything you need to start playing <strong>{gameName}</strong> again on <strong>{level}</strong>!
             </p>
-            {/* Conditionally render 3 cards/categories for everything or just the specifc category selected for the other three options */}
-            {recapOption === "Everything" ? (
-                //Render three cards
-                // {/* Use Bootstrap row to show 3 cards side by side (on larger screens) with one for each category of catchup */}
-                <Row>
-                    {/* First card: Recap/"the story so far" */}
-                    <Col md={4}>
-                        <ResultCard title="Story Recap" content={recap} />
-                    </Col>
+            
+            {/* Use Bootstrap row to show 3 cards side by side (on larger screens) with one for each category of catchup */}
+            <Row>
+                {/* First card: Recap/"the story so far" */}
+                <Col md={4}>
+                    <ResultCard title="Story Recap" content={recap} />
+                    {/* The +more button  */}
+                    <div className='text-center mt-2'>
+                        <Button variant="warning" onClick={() => Navigate('/results-single', { state: { gameName, level, recapOption: "Story" } })}>
+                            + more
+                        </Button>
+                    </div>
+                </Col>
 
-                    {/* Second card: Current Objective at current level  */}
-                    <Col md={4}>
-                        <ResultCard title="Current Objective" content={objective} />
-                    </Col>
+                {/* Second card: Current Objective at current level  */}
+                <Col md={4}>
+                    <ResultCard title="Current Objective" content={objective} />
+                    <div className='text-center mt-2'>
+                        <Button variant="warning" onClick={() => Navigate('results-single', { state: {gameName, level, recapOption: "Objective" } })}>
+                            + more
+                        </Button>
+                    </div>
+                </Col>
 
-                    {/* Third Card: everything you need to remember about the controls and mechanics... */}
-                    <Col md={4}>
-                        <ResultCard title="Controls and Mechanics" content={controls} />
-                    </Col>
-                </Row>
-            ) : (
-                //For a single category, determine which data to show
-                <div>
-                    {recapOption === "Story" && <ResultCard title="Story Recap" content={recap} />}
-                    {recapOption === "Objective" && <ResultCard title="Current Objective" content={objective} />}
-                    {recapOption === "Controls and Mechanics" && <ResultCard title="Controls and Mechanics" content={controls} />}
-                </div>
-            )}
+                {/* Third Card: everything you need to remember about the controls and mechanics... */}
+                <Col md={4}>
+                    <ResultCard title="Controls and Mechanics" content={controls} />
+                    <div className='text-center mt-2'>
+                        <Button variant="warning" onClick={() => Navigate('results-single', { state: { gameName, level, recapOption: "Controls and Mechanics" } })}>
+                            + more
+                        </Button>
+                    </div>
+                </Col>
+            </Row>
+            
         </div>
     );
 

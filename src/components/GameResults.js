@@ -65,8 +65,8 @@ function GameResults() {
                 <Col md={4}>
                     <ResultCard title="Story Recap" content={recap} />
                     {/* The +more button  */}
-                    <div className='text-center mt-2'>
-                        <Button variant="warning" onClick={() => navigate('/results-single', { state: { gameName, level, recapOption: "Story" } })}>
+                    <div className='text-center mt-2 mb-3'>
+                        <Button variant="primary" onClick={() => navigate('/results-single', { state: { gameName, level, recapOption: "Story" } })}>
                             + more
                         </Button>
                     </div>
@@ -75,8 +75,8 @@ function GameResults() {
                 {/* Second card: Current Objective at current level  */}
                 <Col md={4}>
                     <ResultCard title="Current Objective" content={objective} />
-                    <div className='text-center mt-2'>
-                        <Button variant="warning" onClick={() => navigate('/results-single', { state: {gameName, level, recapOption: "Objective" } })}>
+                    <div className='text-center mt-2 mb-3'>
+                        <Button variant="primary" onClick={() => navigate('/results-single', { state: {gameName, level, recapOption: "Objective" } })}>
                             + more
                         </Button>
                     </div>
@@ -85,8 +85,8 @@ function GameResults() {
                 {/* Third Card: everything you need to remember about the controls and mechanics... */}
                 <Col md={4}>
                     <ResultCard title="Controls and Mechanics" content={controls} />
-                    <div className='text-center mt-2'>
-                        <Button variant="warning" onClick={() => navigate('/results-single', { state: { gameName, level, recapOption: "Controls and Mechanics" } })}>
+                    <div className='text-center mt-2 mb-3'>
+                        <Button variant="primary" onClick={() => navigate('/results-single', { state: { gameName, level, recapOption: "Controls and Mechanics" } })}>
                             + more
                         </Button>
                     </div>

@@ -20,7 +20,13 @@ function GameForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         //Navigate to results page with gameName, level, and recapOption. API will be called there.
-        navigate('/results', { state: { gameName, level, recapOption } });
+        // navigate('/results', { state: { gameName, level, recapOption } });
+        //conditional routing
+        if (recapOption === "Everything") {
+            navigate('/results', { state: { gameName, level, recapOption } });
+        } else {
+            navigate('/results-single', { state: { gameName, level, recapOption } });
+        }
     };
 
     return (

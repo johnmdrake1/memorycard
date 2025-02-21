@@ -11,6 +11,8 @@ import NavigationBar from './components/NavigationBar';
 import GameForm from './components/GameForm';
 //Import custom GameForm component
 import GameResults from './components/GameResults';
+//Import Single page results component
+import ResultsSingle from './components/ResultsSingle'
 
 //Main App component
 function App() {
@@ -31,6 +33,9 @@ function App() {
 
             {/* Route for the results screen */}
             <Route path='/results' element={<GameResults />} />
+
+            {/* Route for the single category results page... */}
+            <Route path='/results-single' element={<ResultsSingle />} />
           </Routes>
         </div>
       </Router>

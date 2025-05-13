@@ -4,6 +4,22 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { fetchGameData } from '../openai';
 import ResultCard from './ResultCard';
+import loaderGif from '../assets/loader.gif';
+
+//ready to go loader gif in an img
+const loaderImg = (
+    <img
+      src={loaderGif}
+      alt="Loading..."
+      style={{
+        display: 'block',
+        margin: '2rem auto',
+        width: '90%',
+        maxWidth: '192px',
+        height: 'auto',
+      }}
+    />
+);
 
 function ResultsSingle() {
     //Get state from navigation
@@ -14,10 +30,14 @@ function ResultsSingle() {
     //Local state for API data
     const [data, setData] = useState({ recap: '', objective: '', controls: '' });
 
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         async function getData() {
+            setLoading(true);
             const fetchedData = await fetchGameData(gameName, level, recapOption);
             setData(fetchedData);
+            setLoading(false);
         }
         getData();
     }, [gameName, level, recapOption]);
@@ -53,7 +73,7 @@ function ResultsSingle() {
             <h2 className='text-center mb-4' style={{ color:'#00ff00', fontFamily: 'monospace' }}>
                 {gameName} - {cardTitle}
             </h2>
-            <ResultCard title={cardTitle} content={cardContent} />
+            <ResultCard title={cardTitle} content={loading ? loaderImg : cardContent} />
             {/* Add a Back button to return to the multi-card view */}
             <div className='text-center mt-3'>
                 <Button variant='warning' onClick={() => navigate('/results', { state: { gameName, level, recapOption: "Everything" } })}>

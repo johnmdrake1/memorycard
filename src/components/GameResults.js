@@ -9,6 +9,22 @@ import { Row, Col, Button } from 'react-bootstrap';
 import { fetchGameData } from '../openai';
 //import Result Card component
 import ResultCard from './ResultCard';
+//import heart loader gif
+import loaderGif from '../assets/loader.gif';
+
+//ready to go loader gif in an img
+const loaderImg = (
+    <img
+      src={loaderGif}
+      alt="Loading..."
+      style={{
+        display: 'block',
+        margin: '2rem auto',
+        width: '64px',
+        height: '64px',
+      }}
+    />
+);
 
 //Game Results function component for displaying retrieved game info
 function GameResults() {
@@ -24,9 +40,13 @@ function GameResults() {
     const [objective, setObjective] = useState('');
     const [controls, setControls] = useState('');
 
+    //state for loading
+    const [loading, setLoading] = useState(true);
+
     //useEffect to trigger the API call once on mount, (API hasn't been called as of the time GameResults loads)
     useEffect(() => {
         async function getData() {
+            setLoading(true);
             //fetch data from OpenAI API
             const data = await fetchGameData(gameName, level, recapOption);
             console.log("Data(in GameResults.js):")
@@ -34,6 +54,7 @@ function GameResults() {
             setRecap(data.recap);
             setObjective(data.objective);
             setControls(data.controls);
+            setLoading(false);
         }
         getData();
     }, [gameName, level, recapOption]);
@@ -63,7 +84,7 @@ function GameResults() {
             <Row>
                 {/* First card: Recap/"the story so far" */}
                 <Col md={4}>
-                    <ResultCard title="Story Recap" content={recap} />
+                    <ResultCard title="Story Recap" content={loading ? loaderImg : recap} />
                     {/* The +more button  */}
                     <div className='text-center mt-2 mb-3'>
                         <Button variant="primary" onClick={() => navigate('/results-single', { state: { gameName, level, recapOption: "Story" } })}>
@@ -74,7 +95,7 @@ function GameResults() {
 
                 {/* Second card: Current Objective at current level  */}
                 <Col md={4}>
-                    <ResultCard title="Current Objective" content={objective} />
+                    <ResultCard title="Current Objective" content={loading ? loaderImg : objective} />
                     <div className='text-center mt-2 mb-3'>
                         <Button variant="primary" onClick={() => navigate('/results-single', { state: {gameName, level, recapOption: "Objective" } })}>
                             + more
@@ -84,7 +105,7 @@ function GameResults() {
 
                 {/* Third Card: everything you need to remember about the controls and mechanics... */}
                 <Col md={4}>
-                    <ResultCard title="Controls and Mechanics" content={controls} />
+                    <ResultCard title="Controls and Mechanics" content={loading ? loaderImg : controls} />
                     <div className='text-center mt-2 mb-3'>
                         <Button variant="primary" onClick={() => navigate('/results-single', { state: { gameName, level, recapOption: "Controls and Mechanics" } })}>
                             + more
